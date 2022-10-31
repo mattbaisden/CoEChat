@@ -9,17 +9,17 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
 
 io.on("connection", (socket) => {
-  console.log('User Connected: ${socket.id}');
+  console.log("User Connected: ", socket.id);
 
   socket.on("join_room", (data) => {
     socket.join(data);
-    console.log('User with ID: ${socket.id} joined room: ${data}');
+    console.log("User with ID: ", socket.id, "connected");
   });
 
   socket.on("send_message", (data) => {
@@ -31,6 +31,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
+server.listen(3001,'192.168.39.137', () => {
   console.log("Server is running");
 });
